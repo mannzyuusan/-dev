@@ -9,7 +9,7 @@
     <body>
         <h1>チーム開発会へようこそ！</h1>
         <h2>カテゴリー:{{ $category_name }} の投稿一覧画面</h2>
-        <a href='/'>投稿一覧ページへ戻る</a>
+        <a href='/posts'>投稿一覧ページへ戻る</a>
         <div>
             @foreach ($posts as $post)
                 <div style='border:solid 1px; margin-bottom: 10px;'>
