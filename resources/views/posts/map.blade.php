@@ -56,5 +56,10 @@
             });
         }
     </script>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.api_key') }}&callback=initMap" async defer></script>
+     <a href='/posts/index'>ホームはこちら</a>
+
 </body>
 </html>
