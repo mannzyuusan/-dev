@@ -23,5 +23,6 @@
         <div>
             {{ $posts->links() }}
         </div>
+        <a href='/posts/map'>マップはこちら</a>
     </body>
 </html>
