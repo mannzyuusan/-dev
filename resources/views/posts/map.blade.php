@@ -13,11 +13,15 @@
 </head>
 <body>
     <h1>My Google Map</h1>
+    <!-- 検索ボックス -->
+    <input type="text" id="search-box" placeholder="検索">
+    <button onclick="searchLocation()">探す</button>
     <!-- 地図を表示するための div 要素 -->
     <div id="map"></div>
 
     <script>
         var map;
+        var marker;
 
         // Google Maps API を使用して地図を初期化する関数
         function initMap() {
@@ -33,21 +37,35 @@
                 zoom: defaultZoom
             });
 
-            // マップ上でクリックされたときのイベントハンドラを追加
-            map.addListener('click', function(event) {
-                // クリックされた位置の緯度経度を取得
-                var clickedLocation = event.latLng;
-                // ピンが既に存在する場合は削除する
-                if (typeof marker !== 'undefined') {
-                    marker.setMap(null);
+            // 検索ボックスを地図に追加
+            var input = document.getElementById('search-box');
+            var searchBox = new google.maps.places.SearchBox(input);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            // ピンを地図に追加
+            marker = new google.maps.Marker({
+                map: map,
+                draggable: true, // ピンをドラッグ可能にする
+            });
+
+            // ピンの位置が変更されたときのイベントハンドラ
+            marker.addListener('dragend', function() {
+                displayAddress(marker.getPosition());
+            });
+        }
+
+        // 検索ボタンをクリックしたときの処理
+        function searchLocation() {
+            var input = document.getElementById('search-box').value;
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({'address': input}, function(results, status) {
+                if (status === 'OK') {
+                    map.setCenter(results[0].geometry.location);
+                    marker.setPosition(results[0].geometry.location);
+                    displayAddress(marker.getPosition());
+                } else {
+                    alert('位置情報が見つかりませんでした：' + status);
                 }
-                // ピンを設定
-                marker = new google.maps.Marker({
-                    position: clickedLocation,
-                    map: map
-                });
-                // 住所を表示する関数を呼び出し
-                displayAddress(clickedLocation);
             });
         }
 
@@ -71,6 +89,6 @@
         }
     </script>
     <!-- 住所を表示する場所 -->
-    <h1 id="address">ここに住所を表示する</h1>
+    <h2 id="address">ここに住所を表示する</h2>
 </body>
 </html>
