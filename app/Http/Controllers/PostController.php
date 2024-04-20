@@ -42,5 +42,10 @@ class PostController extends Controller
 
         return redirect('/posts/' . $post->id);
     }
+    
+    public function map(){
+        
+        return view('posts.map');
+    }
 
 }
