@@ -16,7 +16,7 @@
         </div>
         <div>
             <p class="edit">[<a href="/posts/{{ $post->id }}/edit">編集</a>]</p>
-            <a href="/">戻る</a>
+            <a href="/posts">戻る</a>
         </div>
     </body>
 </html>

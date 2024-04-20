@@ -5,9 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
@@ -20,13 +18,15 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-    Route::get('/posts/{post}',[PostController::class,'show'])->name('posts.show');
+    Route::get('/', [PostController::class, 'index'])->name('posts.index');
+    
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::get('/posts/map', [PostController::class, 'map'])->name('posts.map');
-    Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
+    
     Route::get('/categories/{category}', [CategoryController::class, 'index'])->name('categories.index');
+    Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
+    Route::get('/posts/{post}',[PostController::class,'show'])->name('posts.show');
 });
 
 require __DIR__.'/auth.php';
