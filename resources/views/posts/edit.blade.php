@@ -22,7 +22,13 @@
                     <input type='text' name='post[body]' value="{{ $post->body }}">
                 </div>
                  <h4>住所</h4>
-                 <input type='text' name='post[title]' value="{{ $post->address }}">
+                 <input type='text' name='post[address]' value="{{ $post->address }}">
+                 <h4>カテゴリー</h4>
+                <select name="post[category_id]">
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
                  <p></p>
                 <input type="submit" value="保存">
                 <p><a href="/posts">戻る</a></p>
