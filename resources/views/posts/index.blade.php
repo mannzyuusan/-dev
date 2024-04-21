@@ -1,11 +1,11 @@
+<x-app>
+    <x-slot name="title">
+    新生活応援ブログ
+    </x-slot>
 <x-navigation>
 <x-slot name="navbar">
     </x-slot>
 </x-navigation>
-    <head>
-       <title>ホーム</title>
-    </head>
-    <body>
         <h2>投稿一覧画面</h2>
         <a href='/posts/create'>新規投稿</a>
         <div>
@@ -24,3 +24,6 @@
         <a href="/posts/map2">近場検索はこちらから！</a>
     </body>
 </html>
+
+</x-app>
+
