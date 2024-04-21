@@ -11,19 +11,19 @@ class Category_spot_name extends Seeder
 {
     public function run()
     {
-        DB::table('spots')->insert([
+        DB::table('categories')->insert([
             'name' => '居酒屋',
         ]);
 
-        DB::table('spots')->insert([
+        DB::table('categories')->insert([
             'name' => 'グルメ',
         ]);
 
-        DB::table('spots')->insert([
+        DB::table('categories')->insert([
             'name' => 'テーマパーク',
         ]);
 
-        DB::table('spots')->insert([
+        DB::table('categories')->insert([
             'name' => 'ビュースポット',
         ]);
     }
