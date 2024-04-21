@@ -1,7 +1,9 @@
-<!DOCTYPE html>
-<html>
+<x-navigation>
+<x-slot name="navbar">
+    </x-slot>
+</x-navigation>
 <head>
-    <title>Google Maps Example</title>
+    <title>Google Maps</title>
     <!-- Google Maps JavaScript API の読み込み -->
     <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.api_key') }}&callback=initMap" async defer></script>
     <style>

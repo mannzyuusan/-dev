@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<x-navigation>
+<x-slot name="navbar">
+    </x-slot>
+</x-navigation>
     <head>
-        <meta charset="utf-8">
-        <title>Blog</title>
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+       <title>ホーム</title>
     </head>
     <body>
-        <h1></h1>
         <h2>投稿一覧画面</h2>
         <a href='/posts/create'>新規投稿</a>
         <div>

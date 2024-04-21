@@ -1,12 +1,12 @@
-<!DOCTYPE HTML>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<x-navigation>
+<x-slot name="navbar">
+    </x-slot>
+</x-navigation>
     <head>
-        <meta charset="utf-8">
         <title>Blog</title>
     </head>
     <body>
-        <h1>チーム開発会へようこそ！</h1>
-        <h2>投稿作成</h2>
+        <h1>投稿作成</h1>
         <form action="/posts" method="POST">
             @csrf
             <div>
