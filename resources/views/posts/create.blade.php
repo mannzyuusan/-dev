@@ -1,11 +1,11 @@
+<x-app>
+    <x-slot name="title">
+    新規投稿作成
+    </x-slot>
 <x-navigation>
 <x-slot name="navbar">
     </x-slot>
 </x-navigation>
-    <head>
-        <meta charset="utf-8">
-        <title>新生活応援ブログ</title>
-    </head>
     <body>
         <h1>新規投稿作成</h1>
         <form action="/posts" method="POST">
@@ -29,7 +29,7 @@
                 </select>
                 
                 
-                <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.api_key') }}&callback=initMap" async defer></script>
+                <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.api_key') }}&callback=initMap" async defer loading=async></script>
     <style>
         #map {
             height: 400px;
@@ -111,3 +111,4 @@
         <div><a href="/posts">戻る</a></div>
     </body>
 </html>
+</x-app>

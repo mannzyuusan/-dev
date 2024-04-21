@@ -1,22 +1,11 @@
+<x-app>
+    <x-slot name="title">
+    マップ
+    </x-slot>
 <x-navigation>
 <x-slot name="navbar">
     </x-slot>
 </x-navigation>
-<head>
-
- 
-    <title>Google Maps</title>
-    <!-- Google Maps JavaScript API の読み込み -->
-
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.api_key') }}&callback=initMap" async defer></script>
-    
-    <style>
-        #map {
-            height: 400px;
-            width: 50%;
-        }
-    </style>
-</head>
 <body>
 <h1>My Google Maps</h1>
 
@@ -153,3 +142,4 @@
 <a href="/posts/map2">近場検索はこちらから！</a>
 </body>
 </html>
+</x-app>
