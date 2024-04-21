@@ -1,14 +1,14 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <title>Blog</title>
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-    </head>
+<x-app>
+    <x-slot name="title">
+    カテゴリー
+    </x-slot>
+<x-navigation>
+<x-slot name="navbar">
+    </x-slot>
+</x-navigation>
+<body>
     <body>
-        <h1>チーム開発会へようこそ！</h1>
-        <h2>カテゴリー:{{ $category_name }} の投稿一覧画面</h2>
+        <h2>カテゴリー:  {{ $category_name }} の投稿一覧</h2>
         <a href='/posts'>投稿一覧ページへ戻る</a>
         <div>
             @foreach ($posts as $post)
@@ -25,3 +25,4 @@
         </div>
     </body>
 </html>
+</x-app>

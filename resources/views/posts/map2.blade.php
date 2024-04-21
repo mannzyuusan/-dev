@@ -1,18 +1,13 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <title>Blog</title>
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.api_key') }}&callback=initMap" async defer></script>
-    <style>
-        #map {
-            height: 400px;
-            width: 50%;
-        }
-    </style>
-</head>
+<x-app>
+    <x-slot name="title">
+    マップ2
+    </x-slot>
+<x-navigation>
+<x-slot name="navbar">
+    </x-slot>
+</x-navigation>
+<body>
+<h1>My Google Maps</h1>
 <body>
 <h1>近辺検索</h1>
 
@@ -141,3 +136,4 @@
 <h2 id="address">この住所を入力する！</h2>
 </body>
 </html>
+</x-app>
