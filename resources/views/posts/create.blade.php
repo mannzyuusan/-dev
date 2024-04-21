@@ -1,5 +1,7 @@
-<!DOCTYPE HTML>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<x-navigation>
+<x-slot name="navbar">
+    </x-slot>
+</x-navigation>
     <head>
         <meta charset="utf-8">
         <title>新生活応援ブログ</title>
