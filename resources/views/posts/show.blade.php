@@ -1,4 +1,7 @@
-<!DOCTYPE HTML>
+<x-navigation>
+<x-slot name="navbar">
+    </x-slot>
+</x-navigation>
 <html lang="{{ str_replace("_", "-", app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -13,6 +16,7 @@
             <p>タイトル：{{ $post->title }}</p>
             <p>本文：{{ $post->body }}</p>
             <p>カテゴリー：<a href="/categories/{{ $post->category->id }}">{{ $post->category->name }}</a></p>
+            <p>住所：{{ $post->address }}</p>
         </div>
         <div>
             <p class="edit">[<a href="/posts/{{ $post->id }}/edit">編集</a>]</p>
