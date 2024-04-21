@@ -21,5 +21,6 @@
             {{ $posts->links() }}
         </div>
         <a href='/posts/map'>マップはこちら</a>
+        <a href="/posts/map2">近場検索はこちらから！</a>
     </body>
 </html>

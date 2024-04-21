@@ -103,9 +103,11 @@
     }
 
     // 近辺検索を行う関数
-    function searchNearby() {
+    
+    async function searchNearby() {
+        const {PlacesService} = await google.maps.importLibrary("places");
         var keyword = document.getElementById('keyword').value;
-        var radius = 1000; // 半径1000m
+        var radius = 10000; // 半径10000m
         var request = {
             location: marker.getPosition(), // ピンの位置を中心に検索
             radius: radius,
@@ -139,5 +141,6 @@
 </script>
 <!-- 住所を表示する場所 -->
 <h2 id="address">この住所を入力する！</h2>
+<a href="/posts/">投稿一覧画面に戻る</a>
 </body>
 </html>

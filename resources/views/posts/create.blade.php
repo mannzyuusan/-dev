@@ -29,7 +29,7 @@
                 </select>
                 
                 
-                <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.api_key') }}&callback=initMap" async defer></script>
+                <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.api_key') }}&callback=initMap" async defer loading=async></script>
     <style>
         #map {
             height: 400px;
