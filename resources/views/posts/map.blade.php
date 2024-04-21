@@ -3,9 +3,13 @@
     </x-slot>
 </x-navigation>
 <head>
+
+ 
     <title>Google Maps</title>
     <!-- Google Maps JavaScript API の読み込み -->
+
     <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.api_key') }}&callback=initMap" async defer></script>
+    
     <style>
         #map {
             height: 400px;
@@ -14,11 +18,14 @@
     </style>
 </head>
 <body>
-<h1>投稿に乗せたい場所</h1>
+<h1>My Google Maps</h1>
 
 <!-- 検索ボックスとボタン -->
 <input type="text" id="searchBox" placeholder="場所を検索">
 <button onclick="searchPlace()">検索</button>
+
+<!-- 「位置情報を取得する」ボタン -->
+<button onclick="getCurrentLocation()">位置情報を取得する</button>
 
 <!-- 地図を表示するための div 要素 -->
 <div id="map"></div>
@@ -101,8 +108,48 @@
             }
         });
     }
+
+    // 「位置情報を取得する」ボタンがクリックされたときの処理
+    function getCurrentLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var currentLocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                // ピンが既に存在する場合は削除する
+                if (typeof marker !== 'undefined') {
+                    marker.setMap(null);
+                }
+                // ピンを設定
+                marker = new google.maps.Marker({
+                    position: currentLocation,
+                    map: map
+                });
+                // 住所を表示する関数を呼び出し
+                displayAddress(currentLocation);
+                // 地図の中心を現在地に設定
+                map.setCenter(currentLocation);
+            }, function() {
+                handleLocationError(true);
+            });
+        } else {
+            // ブラウザがGeolocationをサポートしていない場合の処理
+            handleLocationError(false);
+        }
+    }
+
+    // 位置情報取得時のエラーハンドリング
+    function handleLocationError(browserHasGeolocation) {
+        var error_message = browserHasGeolocation ?
+            '位置情報の取得に失敗しました' :
+            'お使いのブラウザはGeolocationをサポートしていません';
+        alert(error_message);
+    }
 </script>
 <!-- 住所を表示する場所 -->
 <h2 id="address">この住所を入力する！</h2>
+
+<a href="/posts/map2">近場検索はこちらから！</a>
 </body>
 </html>
