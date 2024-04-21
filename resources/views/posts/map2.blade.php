@@ -5,9 +5,7 @@
     <title>Blog</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-    
     <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.api_key') }}&callback=initMap" async defer></script>
-    
     <style>
         #map {
             height: 400px;
@@ -16,14 +14,14 @@
     </style>
 </head>
 <body>
-<h1>My Google Maps</h1>
-
-<!-- 検索ボックスとボタン -->
-<input type="text" id="searchBox" placeholder="場所を検索">
-<button onclick="searchPlace()">検索</button>
+<h1>近辺検索</h1>
 
 <!-- 「位置情報を取得する」ボタン -->
 <button onclick="getCurrentLocation()">位置情報を取得する</button>
+
+<!-- 「近辺検索」ボックスとボタン -->
+<input type="text" id="keyword" placeholder="キーワードを入力">
+<button onclick="searchNearby()">近辺検索</button>
 
 <!-- 地図を表示するための div 要素 -->
 <div id="map"></div>
@@ -45,23 +43,44 @@
             center: tokyoStation, // 東京駅を中心に表示
             zoom: defaultZoom
         });
+    }
 
-        // マップ上でクリックされたときのイベントハンドラを追加
-        map.addListener('click', function(event) {
-            // クリックされた位置の緯度経度を取得
-            var clickedLocation = event.latLng;
-            // ピンが既に存在する場合は削除する
-            if (typeof marker !== 'undefined') {
-                marker.setMap(null);
-            }
-            // ピンを設定
-            marker = new google.maps.Marker({
-                position: clickedLocation,
-                map: map
+    // 「位置情報を取得する」ボタンがクリックされたときの処理
+    function getCurrentLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var currentLocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                // ピンが既に存在する場合は削除する
+                if (typeof marker !== 'undefined') {
+                    marker.setMap(null);
+                }
+                // ピンを設定
+                marker = new google.maps.Marker({
+                    position: currentLocation,
+                    map: map
+                });
+                // 地図の中心を現在地に設定
+                map.setCenter(currentLocation);
+                // 住所を取得
+                displayAddress(currentLocation);
+            }, function() {
+                handleLocationError(true);
             });
-            // 住所を表示する関数を呼び出し
-            displayAddress(clickedLocation);
-        });
+        } else {
+            // ブラウザがGeolocationをサポートしていない場合の処理
+            handleLocationError(false);
+        }
+    }
+
+    // 位置情報取得時のエラーハンドリング
+    function handleLocationError(browserHasGeolocation) {
+        var error_message = browserHasGeolocation ?
+            '位置情報の取得に失敗しました' :
+            'お使いのブラウザはGeolocationをサポートしていません';
+        alert(error_message);
     }
 
     // 住所を表示する関数
@@ -83,71 +102,42 @@
         });
     }
 
-    // 検索ボックスで入力された場所を検索する関数
-    function searchPlace() {
-        var input = document.getElementById('searchBox').value;
-        var geocoder = new google.maps.Geocoder();
-        // 住所を検索するリクエストを作成
-        geocoder.geocode({'address': input}, function(results, status) {
-            if (status === 'OK') {
-                // 検索結果の最初の場所を地図上に表示
-                map.setCenter(results[0].geometry.location);
-                if (typeof marker !== 'undefined') {
-                    marker.setMap(null);
+    // 近辺検索を行う関数
+    function searchNearby() {
+        var keyword = document.getElementById('keyword').value;
+        var radius = 1000; // 半径1000m
+        var request = {
+            location: marker.getPosition(), // ピンの位置を中心に検索
+            radius: radius,
+            keyword: keyword
+        };
+        var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch(request, function(results, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                // 検索結果を地図上に表示
+                for (var i = 0; i < results.length; i++) {
+                    createMarker(results[i]);
                 }
-                marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location
-                });
-                // 住所を表示
-                document.getElementById('address').innerHTML = results[0].formatted_address;
-            } else {
-                alert('Geocode was not successful for the following reason: ' + status);
             }
         });
     }
 
-    // 「位置情報を取得する」ボタンがクリックされたときの処理
-    function getCurrentLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var currentLocation = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
-                // ピンが既に存在する場合は削除する
-                if (typeof marker !== 'undefined') {
-                    marker.setMap(null);
-                }
-                // ピンを設定
-                marker = new google.maps.Marker({
-                    position: currentLocation,
-                    map: map
-                });
-                // 住所を表示する関数を呼び出し
-                displayAddress(currentLocation);
-                // 地図の中心を現在地に設定
-                map.setCenter(currentLocation);
-            }, function() {
-                handleLocationError(true);
+    // マーカーを作成する関数
+    function createMarker(place) {
+        var marker = new google.maps.Marker({
+            map: map,
+            position: place.geometry.location
+        });
+        // マーカーをクリックしたときの動作を定義（ここでは情報ウィンドウを表示）
+        google.maps.event.addListener(marker, 'click', function() {
+            var infowindow = new google.maps.InfoWindow({
+                content: '<strong>' + place.name + '</strong><br>' + place.vicinity
             });
-        } else {
-            // ブラウザがGeolocationをサポートしていない場合の処理
-            handleLocationError(false);
-        }
-    }
-
-    // 位置情報取得時のエラーハンドリング
-    function handleLocationError(browserHasGeolocation) {
-        var error_message = browserHasGeolocation ?
-            '位置情報の取得に失敗しました' :
-            'お使いのブラウザはGeolocationをサポートしていません';
-        alert(error_message);
+            infowindow.open(map, this);
+        });
     }
 </script>
 <!-- 住所を表示する場所 -->
 <h2 id="address">この住所を入力する！</h2>
-
-<a href="/posts/map2">近場検索はこちらから！</a>
 </body>
 </html>

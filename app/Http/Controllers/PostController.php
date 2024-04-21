@@ -47,5 +47,10 @@ class PostController extends Controller
         
         return view('posts.map');
     }
+    
+    public function map2(){
+        
+        return view('posts.map2');
+    }
 
 }

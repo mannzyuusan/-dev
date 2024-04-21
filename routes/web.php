@@ -21,6 +21,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::get('/posts/map', [PostController::class, 'map'])->name('posts.map');    
+    Route::get('/posts/map2', [PostController::class, 'map2'])->name('posts.map2');   
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     Route::get('/posts/map', [PostController::class, 'map'])->name('posts.map');
