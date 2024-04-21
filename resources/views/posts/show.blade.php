@@ -1,10 +1,12 @@
 <x-app>
     <x-slot name="title">
-    新規投稿作成
+    詳細
     </x-slot>
 <x-navigation>
 <x-slot name="navbar">
-    </x-slot>
+       </x-slot>
+</x-navigation>
+    
         <h1>詳細画面</h1>
         <div>
             <p>タイトル：{{ $post->title }}</p>
