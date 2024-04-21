@@ -4,33 +4,29 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use DateTime;
 
 class Category_spot_name extends Seeder
 {
     public function run()
     {
-        DB::table('spots')->insert([
+        DB::table('categories')->insert([
             'name' => '居酒屋',
-            'created_at' => new DateTime(),
-            'updated_at' => new DateTime(),
         ]);
 
-        DB::table('spots')->insert([
+        DB::table('categories')->insert([
             'name' => 'グルメ',
-            'created_at' => new DateTime(),
-            'updated_at' => new DateTime(),
         ]);
 
-        DB::table('spots')->insert([
+        DB::table('categories')->insert([
             'name' => 'テーマパーク',
-            'created_at' => new DateTime(),
-            'updated_at' => new DateTime(),
         ]);
 
-        DB::table('spots')->insert([
+        DB::table('categories')->insert([
             'name' => 'ビュースポット',
-            'created_at' => new DateTime(),
-            'updated_at' => new DateTime(),
         ]);
-    
+    }
 }
+
+?>
