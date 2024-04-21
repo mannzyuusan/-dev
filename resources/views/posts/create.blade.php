@@ -14,17 +14,17 @@
         <form action="/posts" method="POST">
             @csrf
             <div>
-                <h2>タイトル</h2>
+                <h4>タイトル</h4>
                 <input type="text" name="post[title]" placeholder="タイトル" value="{{ old('post.title') }}"/>
                 <p class="title__error" style="color:red">{{ $errors->first('post.title') }}</p>
             </div>
             <div>
-                <h2>本文</h2>
+                <h4>本文</h4>
                 <textarea name="post[body]" placeholder="今日も1日お疲れさまでした。">{{ old('post.body') }}</textarea>
                 <p class="body__error" style="color:red">{{ $errors->first('post.body') }}</p>
             </div>
             <div>
-                <h2>カテゴリー</h2>
+                <h4>カテゴリー</h4>
                 <select name="post[category_id]">
                     @foreach($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -41,7 +41,7 @@
     </style>
 </head>
 <body>
-    <h1>投稿に乗せたい場所</h1>
+    <h3>投稿に載せたい場所</h3>
     <!-- 地図を表示するための div 要素 -->
     <div id="map"></div>
 
@@ -133,6 +133,7 @@
         
     </script>
     <!-- 住所を表示する場所 -->
+
     
     <style> 
     .btn--orange {
@@ -156,11 +157,10 @@
         <a onclick="getCurrentLocation()" class="btn btn--orange btn--cubic btn--shadow">位置情報を取得！</a>
     <h2>住所</h2>
                 <input id="address" type="text" name="post[address]" placeholder="タイトル" value=""/>
+
                 <p class="title__error" style="color:red">{{ $errors->first('address') }}</p>
             </div>
     
-    
-                
             </div>
             <input type="submit" value="保存" class="btn btn--orange btn--cubic btn--shadow" />
         </form>

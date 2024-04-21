@@ -6,7 +6,7 @@
 <x-slot name="navbar">
     </x-slot>
 </x-navigation>
-<body>
+
 <h1>My Google Maps</h1>
 
 <!-- 検索ボックスとボタン -->
@@ -140,6 +140,6 @@
 <h2 id="address">この住所を入力する！</h2>
 
 <a href="/posts/map2">近場検索はこちらから！</a>
-</body>
-</html>
+
+
 </x-app>
