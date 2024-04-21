@@ -3,10 +3,11 @@
     </x-slot>
 </x-navigation>
     <head>
-        <title>Blog</title>
+        <meta charset="utf-8">
+        <title>新生活応援ブログ</title>
     </head>
     <body>
-        <h1>投稿作成</h1>
+        <h1>新規投稿作成</h1>
         <form action="/posts" method="POST">
             @csrf
             <div>
@@ -97,7 +98,12 @@
     </script>
     <!-- 住所を表示する場所 -->
     <h2 id="address">この住所を入力する！</h2>
-                
+    <h2>住所</h2>
+                <input type="text" name="post[address]" placeholder="タイトル" value="{{ old('post.address') }}"/>
+                <p class="title__error" style="color:red">{{ $errors->first('address') }}</p>
+            </div>
+    
+    
                 
             </div>
             <input type="submit" value="保存"/>
