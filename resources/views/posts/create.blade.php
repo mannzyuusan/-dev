@@ -5,6 +5,9 @@
 <x-navigation>
 <x-slot name="navbar">
     </x-slot>
+    
+     
+     
 </x-navigation>
     <body>
         <h1>新規投稿作成</h1>
@@ -86,7 +89,7 @@
                 if (status === google.maps.GeocoderStatus.OK) {
                     if (results[0]) {
                         // 取得した住所を表示
-                        document.getElementById('address').innerHTML = results[0].formatted_address;
+                        document.getElementById('address').value = results[0].formatted_address;
                     } else {
                         console.log('No results found');
                     }
@@ -94,17 +97,72 @@
                     console.log('Geocoder failed due to: ' + status);
                 }
             });
+        
+            
         }
+        
+        function getCurrentLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var currentLocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                // ピンが既に存在する場合は削除する
+                if (typeof marker !== 'undefined') {
+                    marker.setMap(null);
+                }
+                // ピンを設定
+                marker = new google.maps.Marker({
+                    position: currentLocation,
+                    map: map
+                });
+                // 地図の中心を現在地に設定
+                map.setCenter(currentLocation);
+                // 住所を取得
+                displayAddress(currentLocation);
+            }, function() {
+                handleLocationError(true);
+            });
+        } else {
+            // ブラウザがGeolocationをサポートしていない場合の処理
+            handleLocationError(false);
+        }
+    }
+        
+        
     </script>
     <!-- 住所を表示する場所 -->
-    <h3 id="address">この住所を入力する！</h3>
-    <h4>住所</h4>
-                <input type="text" name="post[address]" placeholder="タイトル" value="{{ old('post.address') }}"/>
+
+    
+    <style> 
+    .btn--orange {
+  color: #fff;
+  background-color: #eb6100;
+  border-bottom: 5px solid #b84c00;
+}
+.btn--orange:hover {
+  margin-top: 3px;
+  color: #fff;
+  background: #f56500;
+  border-bottom: 2px solid #b84c00;
+}
+.btn--shadow {
+  -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}
+    </style>
+    
+    
+        <a onclick="getCurrentLocation()" class="btn btn--orange btn--cubic btn--shadow">位置情報を取得！</a>
+    <h2>住所</h2>
+                <input id="address" type="text" name="post[address]" placeholder="タイトル" value=""/>
+
                 <p class="title__error" style="color:red">{{ $errors->first('address') }}</p>
             </div>
     
             </div>
-            <input type="submit" value="保存"/>
+            <input type="submit" value="保存" class="btn btn--orange btn--cubic btn--shadow" />
         </form>
         <div><a href="/posts">戻る</a></div>
     </body>

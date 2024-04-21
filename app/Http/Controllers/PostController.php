@@ -30,9 +30,9 @@ class PostController extends Controller
         return redirect('/posts/' . $post->id);
     }
 
-    public function edit(Post $post)
+    public function edit(Post $post, Category $category)
     {
-        return view('posts/edit')->with(['post' => $post]);
+        return view('posts/edit')->with(['post' => $post, 'categories' => $category->get()]);
     }
 
     public function update(Request $request, Post $post)

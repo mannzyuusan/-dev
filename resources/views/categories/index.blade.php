@@ -8,7 +8,9 @@
 </x-navigation>
 <body>
     <body>
-        <h2>カテゴリー:  {{ $category_name }} の投稿一覧</h2>
+   <h1>新生活応援ブログ</h1>
+        <h2>カテゴリー:{{ $category_name }} の投稿一覧画面</h2>
+
         <a href='/posts'>投稿一覧ページへ戻る</a>
         <div>
             @foreach ($posts as $post)
