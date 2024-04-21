@@ -14,14 +14,18 @@
                 @csrf
                 @method('PUT')
                 <div class='content__title'>
-                    <h2>タイトル</h2>
+                    <h4>タイトル</h4>
                     <input type='text' name='post[title]' value="{{ $post->title }}">
                 </div>
                 <div class='content__body'>
-                    <h2>本文</h2>
+                    <h4>本文</h4>
                     <input type='text' name='post[body]' value="{{ $post->body }}">
                 </div>
+                 <h4>住所</h4>
+                 <input type='text' name='post[title]' value="{{ $post->address }}">
+                 <p></p>
                 <input type="submit" value="保存">
+                <p><a href="/posts">戻る</a></p>
             </form>
         </div>
     </body>
